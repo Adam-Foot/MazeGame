@@ -11,5 +11,6 @@ void initMaze(int, int);
 void drawMaze();
 void unit(int, int);
 void drawCharacter();
+void drawExit();
 
 #endif

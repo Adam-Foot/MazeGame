@@ -15,6 +15,7 @@ void displaySizeChange(int, int);	// Callback function for changing size of scre
 void timer(int);					// Callback function for the timer for character movement
 void keyboardInput(int, int, int);	// Callback function for keyboard input from user
 bool gameover = false;
+bool foundExit = false;
 
 
 void init()
@@ -45,13 +46,20 @@ int main(int argc, char** argv)
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);	// Clears colour buffer
-	drawMaze();
-	drawCharacter();
+	drawMaze();							// Draws the maze
+	drawCharacter();					// Draws the character
+	drawExit();							// Draws the exit
 	glutSwapBuffers();					// Swap buffers and displays the new frame
 
 	if (gameover)
 	{
 		MessageBox(NULL, "Game Over! You obtained a score of: ", "Try again!", 0);
+		exit(0);
+	}
+
+	if (foundExit)
+	{
+		MessageBox(NULL, "Well done you found the exit! You obtained a score of: ", "Congratulations!", 0);
 		exit(0);
 	}
 }

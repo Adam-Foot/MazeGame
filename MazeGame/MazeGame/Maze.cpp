@@ -4,9 +4,11 @@
 #include "Maze.h"
 
 int mazeX, mazeY;			// Maze x and y co-ordinates
-int posX = 30, posY = 30;	// Position of character
+int posX = 2, posY = 57;	// Position of character
 short characterDirection;
 extern bool gameover;		// Allows access to gameover bool from Main.cpp
+extern bool foundExit;
+int exitX, exitY;
 
 
 void initMaze(int x, int y)
@@ -37,7 +39,7 @@ void unit(int x, int y)
 	}
 	else
 	{
-		glLineWidth(1.0);						// Set's line width
+		glLineWidth(1.0);							// Set's line width
 		glColor3f(0.10, 0.10, 0.10);	// Set's line colour
 	}
 	
@@ -49,6 +51,15 @@ void unit(int x, int y)
 	glVertex2f(x, y + 1);
 
 	glEnd();
+}
+
+void drawExit()
+{
+	exitX = 56;
+	exitY = 2;
+
+	glColor3f(0.0, 0.0, 1.0);
+	glRectf(exitX, exitY, exitX + 1, exitY + 1);
 }
 
 void drawCharacter()
@@ -76,6 +87,11 @@ void drawCharacter()
 	if (posX == 0 || posX == mazeX - 1 || posY == 0 || posY == mazeY - 1)
 	{
 		gameover = true;
+	}
+
+	if (posX == exitX && posY == exitY)
+	{
+		foundExit = true;
 	}
 	
 }
