@@ -7,8 +7,8 @@ int mazeX, mazeY;			// Maze x and y co-ordinates
 int posX = 2, posY = 57;	// Position of character
 short characterDirection;
 extern bool gameover;		// Allows access to gameover bool from Main.cpp
-extern bool foundExit;
-int exitX, exitY;
+extern bool foundExit;		// Allows access to foundExit bool from Main.cpp
+int exitX, exitY;			// Holds the values of the exit cube
 
 
 void initMaze(int x, int y)

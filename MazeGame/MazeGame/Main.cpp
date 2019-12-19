@@ -66,11 +66,11 @@ void display()
 
 void displaySizeChange(int width, int height)
 {
-	glViewport(0, 0, (GLsizei) width, (GLsizei) height);		// Set's the viewport of the window automatically
-	glMatrixMode(GL_PROJECTION);											// Set's matrix mode to projection
+	glViewport(0, 0, (GLsizei) width, (GLsizei) height);			// Set's the viewport of the window automatically
+	glMatrixMode(GL_PROJECTION);												// Set's matrix mode to projection
 	glLoadIdentity();
 	glOrtho(0.0, COLUMNS, 0.0, ROWS, -1.0, 1.0);		// Sets the clipping planes and distances for depth clipping
-	glMatrixMode(GL_MODELVIEW);												// Set's matrix back to model_view
+	glMatrixMode(GL_MODELVIEW);													// Set's matrix back to model_view
 }
 
 void timer(int)
