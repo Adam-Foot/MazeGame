@@ -6,6 +6,7 @@
 int mazeX, mazeY;			// Maze x and y co-ordinates
 int posX = 30, posY = 30;	// Position of character
 short characterDirection;
+extern bool gameover;		// Allows access to gameover bool from Main.cpp
 
 
 void initMaze(int x, int y)
@@ -68,5 +69,13 @@ void drawCharacter()
 	{
 		posX--;
 	}
+	glColor3f(0.0, 1.0, 0.0);	// Set's colour of character to green
 	glRectd(posX, posY, posX + 1, posY + 1);
+
+	// Checks to see if character has hit a wall that it wasn't allowed to.
+	if (posX == 0 || posX == mazeX - 1 || posY == 0 || posY == mazeY - 1)
+	{
+		gameover = true;
+	}
+	
 }

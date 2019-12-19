@@ -14,6 +14,7 @@ void display();
 void displaySizeChange(int, int);	// Callback function for changing size of screen
 void timer(int);					// Callback function for the timer for character movement
 void keyboardInput(int, int, int);	// Callback function for keyboard input from user
+bool gameover = false;
 
 
 void init()
@@ -47,6 +48,12 @@ void display()
 	drawMaze();
 	drawCharacter();
 	glutSwapBuffers();					// Swap buffers and displays the new frame
+
+	if (gameover)
+	{
+		MessageBox(NULL, "Game Over! You obtained a score of: ", "Try again!", 0);
+		exit(0);
+	}
 }
 
 void displaySizeChange(int width, int height)
