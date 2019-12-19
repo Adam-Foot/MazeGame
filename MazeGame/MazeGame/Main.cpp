@@ -8,9 +8,12 @@
 #define COLUMNS 60.0
 #define FPS 10			// Assigns FPS value
 
+extern short characterDirection;	// Externs the characterDirection short from Maze.cpp
+
 void display();
 void displaySizeChange(int, int);	// Callback function for changing size of screen
 void timer(int);					// Callback function for the timer for character movement
+void keyboardInput(int, int, int);	// Callback function for keyboard input from user
 
 
 void init()
@@ -30,6 +33,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display);
 	glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
 	glutTimerFunc(0, timer, 0);									// Timer function
+	glutSpecialFunc(keyboardInput);
 	init();
 	glutMainLoop();														// Main GLUT loop
 
@@ -37,18 +41,11 @@ int main(int argc, char** argv)
 }
 
 
-int index = 0;							// Keeps track of position
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);	// Clears colour buffer
 	drawMaze();
-	glRectd(index, 30, index + 2, 32);
-	index++;
-	if (index > 60)
-	{
-		index = 0;
-	}
-	
+	drawCharacter();
 	glutSwapBuffers();					// Swap buffers and displays the new frame
 }
 
@@ -65,4 +62,23 @@ void timer(int)
 {
 	glutPostRedisplay();							// Calls display function asap - new frame is displayed every time it's called
 	glutTimerFunc(1000 / FPS, timer, 0);	// Called 10 times every second (10 FPS)
+}
+
+void keyboardInput(int keyPressed, int, int)
+{
+	switch(keyPressed)					// Depending on what key is pressed controls the direction of the character movement
+	{
+	case GLUT_KEY_UP:
+		characterDirection = UP;
+		break;
+	case GLUT_KEY_RIGHT:
+		characterDirection = RIGHT;
+		break;
+	case GLUT_KEY_DOWN:
+		characterDirection = DOWN;
+		break;
+	case GLUT_KEY_LEFT:
+		characterDirection = LEFT;
+		break;
+	}
 }

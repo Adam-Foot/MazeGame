@@ -3,7 +3,10 @@
 
 #include "Maze.h"
 
-int mazeX, mazeY;
+int mazeX, mazeY;			// Maze x and y co-ordinates
+int posX = 30, posY = 30;	// Position of character
+short characterDirection;
+
 
 void initMaze(int x, int y)
 {
@@ -34,7 +37,7 @@ void unit(int x, int y)
 	else
 	{
 		glLineWidth(1.0);						// Set's line width
-		glColor3f(1.0, 1.0, 1.0);	// Set's line colour
+		glColor3f(0.10, 0.10, 0.10);	// Set's line colour
 	}
 	
 	glBegin(GL_LINE_LOOP);
@@ -45,4 +48,25 @@ void unit(int x, int y)
 	glVertex2f(x, y + 1);
 
 	glEnd();
+}
+
+void drawCharacter()
+{
+	if (characterDirection == UP)
+	{
+		posY++;
+	}
+	else if (characterDirection == RIGHT)
+	{
+		posX++;
+	}
+	else if (characterDirection == DOWN)
+	{
+		posY--;
+	}
+	else if (characterDirection == LEFT)
+	{
+		posX--;
+	}
+	glRectd(posX, posY, posX + 1, posY + 1);
 }
