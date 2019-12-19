@@ -13,14 +13,29 @@ void initMaze(int x, int y)
 
 void drawMaze()
 {
-	unit(20, 20);
+	for (int x = 0; x < mazeX; x++)
+	{
+		for (int y = 0; y < mazeY; y++)
+		{
+			unit(x, y);
+		}
+	}
 }
 
 void unit(int x, int y)
 {
 
-	glLineWidth(1.0);						// Set's line width
-	glColor3f(0.0, 0.75, 0.0);	// Set's line colour
+	// Loop that changes the colour of the outside of the grid to red
+	if (x == 0 || y == 0 || x == mazeX - 1 || y == mazeY - 1)
+	{
+		glLineWidth(1.0);
+		glColor3f(0.75, 0.0, 0.0);
+	}
+	else
+	{
+		glLineWidth(1.0);						// Set's line width
+		glColor3f(1.0, 1.0, 1.0);	// Set's line colour
+	}
 	
 	glBegin(GL_LINE_LOOP);
 
