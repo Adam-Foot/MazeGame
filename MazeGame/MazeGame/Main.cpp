@@ -2,6 +2,11 @@
 #include <GL/freeglut.h>
 
 
+#include "Maze.h"
+
+#define ROWS 60.0		// Defines values for X and Y co-ordinates on maze window
+#define COLUMNS 60.0
+
 void display();
 void displaySizeChange(int, int);	// Callback function for changing size of screen
 
@@ -39,6 +44,6 @@ void displaySizeChange(int width, int height)
 	glViewport(0, 0, (GLsizei) width, (GLsizei) height);		// Set's the viewport of the window automatically
 	glMatrixMode(GL_PROJECTION);											// Set's matrix mode to projection
 	glLoadIdentity();
-	glOrtho(0.0, 60.0, 0.0, 60.0, -1.0, 1.0);		// Sets the clipping planes and distances for depth clipping
+	glOrtho(0.0, COLUMNS, 0.0, ROWS, -1.0, 1.0);		// Sets the clipping planes and distances for depth clipping
 	glMatrixMode(GL_MODELVIEW);												// Set's matrix back to model_view
 }
