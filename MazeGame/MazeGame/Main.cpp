@@ -3,7 +3,7 @@
 
 
 void display();
-
+void displaySizeChange(int, int);	// Callback function for changing size of screen
 
 
 void init()
@@ -20,6 +20,7 @@ int main(int argc, char** argv)
 	glutInitWindowPosition(300, 300);								// Set's the position of the GLUT window
 	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");		// Creates GLUT window and defines it's title
 	glutDisplayFunc(display);
+	glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
 	init();
 	glutMainLoop();														// Main GLUT loop
 
@@ -30,4 +31,9 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);	// Clears colour buffer
 	glutSwapBuffers();					// Swap buffers and displays the new frame
+}
+
+void displaySizeChange(int width, int height)
+{
+	glViewport(0, 0, (GLsizei) width, (GLsizei) height);	// Set's the viewport of the window automatically
 }
