@@ -14,6 +14,7 @@ void displaySizeChange(int, int);	// Callback function for changing size of scre
 void init()
 {
 	glClearColor(0.10, 0.10, 0.10, 1.0);	// Set's background colour to dark grey
+	initMaze(COLUMNS, ROWS);
 }
 
 
@@ -36,6 +37,7 @@ int main(int argc, char** argv)
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);	// Clears colour buffer
+	drawMaze();
 	glutSwapBuffers();					// Swap buffers and displays the new frame
 }
 
