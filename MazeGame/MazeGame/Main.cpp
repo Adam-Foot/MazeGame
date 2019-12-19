@@ -53,7 +53,7 @@ void display()
 
 	if (gameover)
 	{
-		MessageBox(NULL, "Game Over! You obtained a score of: ", "Try again!", 0);
+		MessageBox(NULL, "Game Over! You obtained a score of 0 ", "Try again!", 0);
 		exit(0);
 	}
 
