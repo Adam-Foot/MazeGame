@@ -8,7 +8,7 @@ void display();
 
 void init()
 {
-	glClearColor(0.0, 0.0, 0.0, 1.0);	// Sets of background of window to black
+	glClearColor(0.10, 0.10, 0.10, 1.0);	// Set's background colour to dark grey
 }
 
 
@@ -16,10 +16,11 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);												// Initialise GLUT
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);						// Initialise the display mode (double buffered for better performance)
-	glutInitWindowSize(600, 600);								//  Sets the size of the GLUT window
-	glutInitWindowPosition(300, 300);								// Sets the position of the GLUT window
+	glutInitWindowSize(600, 600);								// Set's the size of the GLUT window
+	glutInitWindowPosition(300, 300);								// Set's the position of the GLUT window
 	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");		// Creates GLUT window and defines it's title
 	glutDisplayFunc(display);
+	init();
 	glutMainLoop();														// Main GLUT loop
 
 	return 0;
@@ -27,5 +28,6 @@ int main(int argc, char** argv)
 
 void display()
 {
-	glutSwapBuffers();	// Swap buffers and displays the new frame
+	glClear(GL_COLOR_BUFFER_BIT);	// Clears colour buffer
+	glutSwapBuffers();					// Swap buffers and displays the new frame
 }
