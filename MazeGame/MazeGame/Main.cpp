@@ -1,6 +1,6 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
-
+#include <irrKlang.h>
 
 #include "Maze.h"
 
@@ -17,11 +17,16 @@ void keyboardInput(int, int, int);	// Callback function for keyboard input from 
 bool gameover = false;
 bool foundExit = false;
 
+// Sound engines for sounds in game
+irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();			// Game music
+irrklang::ISoundEngine* SoundEngineFail = irrklang::createIrrKlangDevice();		// Failure sound effect
+irrklang::ISoundEngine* SoundEngineSuccess = irrklang::createIrrKlangDevice();	// Success sound effect
 
 void init()
 {
 	glClearColor(0.10, 0.10, 0.10, 1.0);	// Set's background colour to dark grey
 	initMaze(COLUMNS, ROWS);
+	SoundEngine->play2D("music.mp3", GL_TRUE);
 }
 
 
@@ -53,12 +58,16 @@ void display()
 
 	if (gameover)
 	{
+		SoundEngine->drop();
+		SoundEngineFail->play2D("failure.wav", GL_FALSE);
 		MessageBox(NULL, "Game Over! You obtained a score of 0 ", "Try again!", 0);
 		exit(0);
 	}
 
 	if (foundExit)
 	{
+		SoundEngine->drop();
+		SoundEngineSuccess->play2D("success.wav", GL_FALSE);
 		MessageBox(NULL, "Well done you found the exit! You obtained a score of: ", "Congratulations!", 0);
 		exit(0);
 	}
