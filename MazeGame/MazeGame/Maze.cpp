@@ -39,7 +39,7 @@ void unit(int x, int y)
 	}
 	else
 	{
-		glLineWidth(1.0);							// Set's line width
+		glLineWidth(0.1);							// Set's line width
 		glColor3f(0.10, 0.10, 0.10);	// Set's line colour
 	}
 	

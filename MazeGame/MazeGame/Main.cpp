@@ -3,6 +3,7 @@
 #include <irrKlang.h>
 
 #include "Maze.h"
+#include <string>
 
 #define ROWS 60.0		// Defines values for X and Y co-ordinates on maze window
 #define COLUMNS 60.0
@@ -18,9 +19,9 @@ bool gameover = false;
 bool foundExit = false;
 int timervalue = 0;
 
-DWORD StartTime = 0;
-DWORD EndTime = 0;
-DWORD CurrentTime = 0;
+DWORD StartTime = 0;	// Set's start time for timer
+DWORD EndTime = 0;		// Set's end time for timer
+DWORD CurrentTime = 0;	// Set's current time for timer
 
 // Sound engines for sounds in game
 irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();			// Game music
@@ -29,9 +30,9 @@ irrklang::ISoundEngine* SoundEngineSuccess = irrklang::createIrrKlangDevice();	/
 
 void init()
 {
-	glClearColor(0.10, 0.10, 0.10, 1.0);	// Set's background colour to dark grey
+	glClearColor(0.10, 0.10, 0.10, 1.0);			// Set's background colour to dark grey
 	initMaze(COLUMNS, ROWS);
-	SoundEngine->play2D("music.mp3", GL_TRUE);
+	SoundEngine->play2D("music.mp3", GL_TRUE);	// Set's background music
 }
 
 
@@ -47,8 +48,8 @@ int main(int argc, char** argv)
 	glutTimerFunc(0, timer, 0);									// Timer function
 	glutSpecialFunc(keyboardInput);
 
-	StartTime = GetTickCount();
-	EndTime = StartTime + (60 * 1000);
+	StartTime = GetTickCount64();											// Start's counting ticks for game timer
+	EndTime = StartTime + (60 * 1000);									// Get's 60 seconds in milliseconds and set's it as end time
 	
 	init();
 	glutMainLoop();														// Main GLUT loop
@@ -63,26 +64,32 @@ void display()
 	drawMaze();							// Draws the maze
 	drawCharacter();					// Draws the character
 	drawExit();							// Draws the exit
-	
+	CurrentTime = GetTickCount64();
 	glutSwapBuffers();					// Swap buffers and displays the new frame
 
+	// Runs if player touches an out of bounds block
 	if (gameover)
 	{
 		SoundEngine->drop();
 		SoundEngineFail->play2D("failure.wav", GL_FALSE);
-		MessageBox(NULL, "Game Over! You obtained a score of 0 ", "Try again!", 0);
+		MessageBox(NULL, "Game Over! You obtained a score of 0!", "GAME OVER!", 0);
 		exit(0);
 	}
 
+	// Runs if player finds the exit before the time runs out
 	if (foundExit)
 	{
 		SoundEngine->drop();
 		SoundEngineSuccess->play2D("success.wav", GL_FALSE);
-		MessageBox(NULL, "Well done you found the exit! You obtained a score of: ", "Congratulations!", 0);
+		char buff[100];
+		const std::string time = std::to_string(CurrentTime);
+		sprintf_s(buff, "Well done you found the exit! You obtained a score of: ", time);
+		printf(time.c_str());
+		MessageBox(NULL, buff, "Congratulations!", 0);
 		exit(0);
 	}
 
-	CurrentTime = GetTickCount();
+	// Runs if the player hasn't reached the end before the 60 second timer
 	if (CurrentTime >= EndTime)
 	{
 		SoundEngine->drop();
