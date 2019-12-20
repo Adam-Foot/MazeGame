@@ -16,6 +16,11 @@ void timer(int);					// Callback function for the timer for character movement
 void keyboardInput(int, int, int);	// Callback function for keyboard input from user
 bool gameover = false;
 bool foundExit = false;
+int timervalue = 0;
+
+DWORD StartTime = 0;
+DWORD EndTime = 0;
+DWORD CurrentTime = 0;
 
 // Sound engines for sounds in game
 irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();			// Game music
@@ -41,6 +46,10 @@ int main(int argc, char** argv)
 	glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
 	glutTimerFunc(0, timer, 0);									// Timer function
 	glutSpecialFunc(keyboardInput);
+
+	StartTime = GetTickCount();
+	EndTime = StartTime + (60 * 1000);
+	
 	init();
 	glutMainLoop();														// Main GLUT loop
 
@@ -54,6 +63,7 @@ void display()
 	drawMaze();							// Draws the maze
 	drawCharacter();					// Draws the character
 	drawExit();							// Draws the exit
+	
 	glutSwapBuffers();					// Swap buffers and displays the new frame
 
 	if (gameover)
@@ -69,6 +79,15 @@ void display()
 		SoundEngine->drop();
 		SoundEngineSuccess->play2D("success.wav", GL_FALSE);
 		MessageBox(NULL, "Well done you found the exit! You obtained a score of: ", "Congratulations!", 0);
+		exit(0);
+	}
+
+	CurrentTime = GetTickCount();
+	if (CurrentTime >= EndTime)
+	{
+		SoundEngine->drop();
+		SoundEngineFail->play2D("failure.wav", GL_FALSE);
+		MessageBox(NULL, "Game Over! You obtained a score of 0 ", "Try again!", 0);
 		exit(0);
 	}
 }
