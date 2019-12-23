@@ -5,8 +5,8 @@
 #include "Maze.h"
 #include <string>
 
-#define ROWS 60.0		// Defines values for X and Y co-ordinates on maze window
-#define COLUMNS 60.0
+#define ROWS 40.0		// Defines values for X and Y co-ordinates on maze window
+#define COLUMNS 40.0
 #define FPS 10			// Assigns FPS value
 
 extern short characterDirection;	// Externs the characterDirection short from Maze.cpp
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);												// Initialise GLUT
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);						// Initialise the display mode (double buffered for better performance)
-	glutInitWindowSize(600, 600);								// Set's the size of the GLUT window
+	glutInitWindowSize(500, 500);								// Set's the size of the GLUT window
 	glutInitWindowPosition(300, 300);								// Set's the position of the GLUT window
 	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");		// Creates GLUT window and defines it's title
 	glutDisplayFunc(display);
