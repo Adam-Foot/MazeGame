@@ -1,13 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <irrKlang.h>
 
 #include "Maze.h"
 #include <string>
+#include <ctime>
 
-#define ROWS 40.0		// Defines values for X and Y co-ordinates on maze window
-#define COLUMNS 40.0
-#define FPS 10			// Assigns FPS value
+#define ROWS 41.0		// Defines values for X and Y co-ordinates on maze window
+#define COLUMNS 41.0
+#define FPS 3			// Assigns FPS value
 
 extern short characterDirection;	// Externs the characterDirection short from Maze.cpp
 
@@ -31,7 +35,7 @@ irrklang::ISoundEngine* SoundEngineSuccess = irrklang::createIrrKlangDevice();	/
 void init()
 {
 	glClearColor(0.10, 0.10, 0.10, 1.0);			// Set's background colour to dark grey
-	initMaze(COLUMNS, ROWS);
+	initMaze(COLUMNS, ROWS);	
 	SoundEngine->play2D("music.mp3", GL_TRUE);	// Set's background music
 }
 
