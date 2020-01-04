@@ -11,7 +11,7 @@
 
 #define ROWS 41.0		// Defines values for X and Y co-ordinates on maze window
 #define COLUMNS 41.0
-#define FPS 3			// Assigns FPS value
+int FPS = 3;			// Assigns FPS value
 
 extern short characterDirection;	// Externs the characterDirection short from Maze.cpp
 
@@ -22,6 +22,7 @@ void keyboardInput(int, int, int);	// Callback function for keyboard input from 
 bool gameover = false;
 bool foundExit = false;
 int timervalue = 0;
+void GoMenu(int value);
 
 DWORD StartTime = 0;	// Set's start time for timer
 DWORD EndTime = 0;		// Set's end time for timer
@@ -40,6 +41,7 @@ void init()
 }
 
 
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);												// Initialise GLUT
@@ -47,6 +49,20 @@ int main(int argc, char** argv)
 	glutInitWindowSize(500, 500);										// Set's the size of the GLUT window
 	glutInitWindowPosition(300, 300);									// Set's the position of the GLUT window
 	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");			// Creates GLUT window and defines it's title
+
+
+	int subMenu1 = glutCreateMenu(GoMenu);
+
+	glutAddMenuEntry("Normal Speed", 1);
+	glutAddMenuEntry("Speed x2", 2);
+	glutAddMenuEntry("Speed x4", 3);
+	glutCreateMenu(GoMenu);
+	glutAddSubMenu("Speed Settings", subMenu1);
+	glutAddMenuEntry("Pause", 4);
+	glutAddMenuEntry("Exit", 5);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+
 	glutDisplayFunc(display);
 	glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
 	glutTimerFunc(0, timer, 0);											// Timer function
@@ -61,6 +77,28 @@ int main(int argc, char** argv)
 	return 0;
 }
 
+void GoMenu(int value) {
+	switch (value)
+	{
+	case 1:
+		FPS = 3;
+		break;
+	case 2:
+		FPS = 6;
+		break;
+	case 3:
+		FPS = 12;
+		break;
+	case 4:
+		FPS = 0;
+		break;
+	case 5:
+		exit(0);
+		break;
+	}
+
+	glutPostRedisplay();
+}
 
 void display()
 {
