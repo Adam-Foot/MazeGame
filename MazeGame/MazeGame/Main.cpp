@@ -58,8 +58,7 @@ int main(int argc, char** argv)
 	glutAddMenuEntry("Speed x4", 3);
 	glutCreateMenu(GoMenu);
 	glutAddSubMenu("Speed Settings", subMenu1);
-	glutAddMenuEntry("Pause", 4);
-	glutAddMenuEntry("Exit", 5);
+	glutAddMenuEntry("Exit", 4);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 
 
@@ -90,7 +89,8 @@ void GoMenu(int value) {
 		FPS = 12;
 		break;
 	case 4:
-		FPS = 0;
+		glutTimerFunc(0, NULL, 0);
+		glutPostRedisplay();
 		break;
 	case 5:
 		exit(0);
@@ -125,7 +125,7 @@ void display()
 		SoundEngineSuccess->play2D("success.wav", GL_FALSE);
 		char buff[100];
 		const std::string time = std::to_string(CurrentTime);
-		sprintf_s(buff, "Well done you found the exit! You obtained a score of: ", time);
+		sprintf_s(buff, "Well done you found the exit! You obtained a score of: ");
 		printf(time.c_str());
 		MessageBox(NULL, buff, "Congratulations!", 0);
 		exit(0);
