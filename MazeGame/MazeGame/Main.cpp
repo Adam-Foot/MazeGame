@@ -39,7 +39,7 @@ void init()
 
 
 time_t programstart;
-time_t programend = 240;
+time_t programend = 180;
 int main(int argc, char** argv)
 {
 
@@ -142,9 +142,10 @@ int main(int argc, char** argv)
 				glutAddMenuEntry("Normal Speed", 1);
 				glutAddMenuEntry("Speed x2", 2);
 				glutAddMenuEntry("Speed x4", 3);
+				glutAddMenuEntry("INSANE! DONT TRY!", 4);
 				glutCreateMenu(GoMenu);
 				glutAddSubMenu("Speed Settings", subMenu1);
-				glutAddMenuEntry("Exit", 4);
+				glutAddMenuEntry("Exit", 5);
 				glutAttachMenu(GLUT_RIGHT_BUTTON);
 
 
@@ -191,6 +192,9 @@ void GoMenu(int value) {
 		FPS = 12;
 		break;
 	case 4:
+		FPS = 20;
+		break;
+	case 5:
 		exit(0);
 		break;
 	}
