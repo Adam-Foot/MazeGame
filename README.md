@@ -20,6 +20,8 @@ complete the maze. I have also included the keyboard input in my Main.cpp.
 In my Maze.cpp and H file I have defined functions that run events such as defining the maze size, drawing the maze 
 co-ordinates, setting the colours for the character, walls and exit, as well as drawing the positions of them all as well.
 
+I have also added sound effects and background music to try and make the game feel nostalgic. I used the irrKlang library to add the different effects when you either win or die. I have also added some 8-bit background music for the user to listen too whilst navigating the maze.
+
 #### What makes your program special and how does it compare to similar things? (Where did you get the idea from? What did you start with? How did you make yours unique? Did you start with a given project?)
 I think my program is unique in the sense that it is incredibly difficult to complete and doesn't allow room for error.
 To be able to "win" in my game you have to be very precise and patient to be able to navigate the maze. I had the idea 
