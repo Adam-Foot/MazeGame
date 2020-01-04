@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+#include <iomanip>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -41,13 +43,20 @@ void init()
 }
 
 
-
+time_t programstart;
+time_t programend = 240;
 int main(int argc, char** argv)
 {
+
+	printf("Welcome to my Maze Game");
+
 	glutInit(&argc, argv);												// Initialise GLUT
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);						// Initialise the display mode (double buffered for better performance)
 	glutInitWindowSize(500, 500);										// Set's the size of the GLUT window
 	glutInitWindowPosition(300, 300);									// Set's the position of the GLUT window
+
+	
+
 	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");			// Creates GLUT window and defines it's title
 
 
@@ -67,9 +76,10 @@ int main(int argc, char** argv)
 	glutTimerFunc(0, timer, 0);											// Timer function
 	glutSpecialFunc(keyboardInput);
 
-	StartTime = GetTickCount64();										// Start's counting ticks for game timer
-	EndTime = StartTime + (360 * 1000);									// Get's 60 seconds in milliseconds and set's it as end time
+	time(&programstart);												// Start's counting ticks for game timer
+
 	
+
 	init();
 	glutMainLoop();														// Main GLUT loop
 
@@ -106,9 +116,9 @@ void display()
 	drawMaze();							// Draws the maze
 	drawCharacter();					// Draws the character
 	drawExit();							// Draws the exit
-	CurrentTime = GetTickCount64();
 	glutSwapBuffers();					// Swap buffers and displays the new frame
 
+	double secondssincestart = difftime(time(NULL), programstart);
 	// Runs if player touches an out of bounds block
 	if (gameover)
 	{
@@ -123,22 +133,25 @@ void display()
 	{
 		SoundEngine->drop();
 		SoundEngineSuccess->play2D("success.wav", GL_FALSE);
-		char buff[100];
-		const std::string time = std::to_string(CurrentTime);
-		sprintf_s(buff, "Well done you found the exit! You obtained a score of: ");
-		printf(time.c_str());
-		MessageBox(NULL, buff, "Congratulations!", 0);
+		char buff[200];
+		const std::string time = std::to_string(secondssincestart);
+		const char* seconds = time.c_str();
+		const std::string text = "Well done you made it! You completed it in " + time + " seconds!";
+		const char* text2 = text.c_str();
+		sprintf_s(buff, seconds);
+		MessageBox(NULL, text2, "Congratulations!", 0);
 		exit(0);
 	}
 
-	// Runs if the player hasn't reached the end before the 60 second timer
-	if (CurrentTime >= EndTime)
+	// Runs if player is out of time (max time 3 minutes or 240 seconds)
+	if (secondssincestart >= programend)
 	{
 		SoundEngine->drop();
 		SoundEngineFail->play2D("failure.wav", GL_FALSE);
-		MessageBox(NULL, "Game Over! You obtained a score of 0 ", "Try again!", 0);
+		MessageBox(NULL, "Game Over! You obtained a score of 0!", "Try again!", 0);
 		exit(0);
 	}
+	
 }
 
 void displaySizeChange(int width, int height)

@@ -167,7 +167,7 @@ void drawCharacter()
 		posX == 38 & posY == 2 || posX == 38 & posY == 4 || posX == 38 & posY == 6 || posX == 38 & posY == 7 || posX == 38 & posY == 8 || posX == 38 & posY == 10 || posX == 38 & posY == 11 || posX == 38 & posY == 12 || posX == 38 & posY == 13 || posX == 38 & posY == 14 || posX == 38 & posY == 15 || posX == 38 & posY == 16 || posX == 38 & posY == 18 || posX == 38 & posY == 19 || posX == 38 & posY == 20 || posX == 38 & posY == 22 || posX == 38 & posY == 24 || posX == 38 & posY == 25 || posX == 38 & posY == 26 || posX == 38 & posY == 27 || posX == 38 & posY == 28 || posX == 38 & posY == 30 || posX == 38 & posY == 32 || posX == 38 & posY == 34 || posX == 38 & posY == 36 || posX == 38 & posY == 37 || posX == 38 & posY == 38 ||
 		posX == 39 & posY == 2 || posX == 39 & posY == 10 || posX == 39 & posY == 22 || posX == 39 & posY == 30 || posX == 39 & posY == 32)
 	{
-		gameover = true;
+		gameover = false;
 	}
 
 	if (posX == exitX && posY == exitY)
