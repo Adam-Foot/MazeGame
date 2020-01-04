@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <iomanip>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -25,10 +24,6 @@ bool gameover = false;
 bool foundExit = false;
 int timervalue = 0;
 void GoMenu(int value);
-
-DWORD StartTime = 0;	// Set's start time for timer
-DWORD EndTime = 0;		// Set's end time for timer
-DWORD CurrentTime = 0;	// Set's current time for timer
 
 // Sound engines for sounds in game
 irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();			// Game music
