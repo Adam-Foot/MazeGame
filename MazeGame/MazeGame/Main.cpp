@@ -36,7 +36,7 @@ void init()
 {
 	glClearColor(0.10, 0.10, 0.10, 1.0);			// Set's background colour to dark grey
 	initMaze(COLUMNS, ROWS);	
-	SoundEngine->play2D("music.mp3", GL_TRUE);	// Set's background music
+	SoundEngine->play2D("music.mp3", GL_TRUE);		// Set's background music
 }
 
 
@@ -44,16 +44,16 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);												// Initialise GLUT
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);						// Initialise the display mode (double buffered for better performance)
-	glutInitWindowSize(500, 500);								// Set's the size of the GLUT window
-	glutInitWindowPosition(300, 300);								// Set's the position of the GLUT window
-	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");		// Creates GLUT window and defines it's title
+	glutInitWindowSize(500, 500);										// Set's the size of the GLUT window
+	glutInitWindowPosition(300, 300);									// Set's the position of the GLUT window
+	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");			// Creates GLUT window and defines it's title
 	glutDisplayFunc(display);
 	glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
-	glutTimerFunc(0, timer, 0);									// Timer function
+	glutTimerFunc(0, timer, 0);											// Timer function
 	glutSpecialFunc(keyboardInput);
 
-	StartTime = GetTickCount64();											// Start's counting ticks for game timer
-	EndTime = StartTime + (60 * 1000);									// Get's 60 seconds in milliseconds and set's it as end time
+	StartTime = GetTickCount64();										// Start's counting ticks for game timer
+	EndTime = StartTime + (360 * 1000);									// Get's 60 seconds in milliseconds and set's it as end time
 	
 	init();
 	glutMainLoop();														// Main GLUT loop
@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 
 void display()
 {
-	glClear(GL_COLOR_BUFFER_BIT);	// Clears colour buffer
+	glClear(GL_COLOR_BUFFER_BIT);		// Clears colour buffer
 	drawMaze();							// Draws the maze
 	drawCharacter();					// Draws the character
 	drawExit();							// Draws the exit
@@ -106,16 +106,16 @@ void display()
 void displaySizeChange(int width, int height)
 {
 	glViewport(0, 0, (GLsizei) width, (GLsizei) height);			// Set's the viewport of the window automatically
-	glMatrixMode(GL_PROJECTION);												// Set's matrix mode to projection
+	glMatrixMode(GL_PROJECTION);									// Set's matrix mode to projection
 	glLoadIdentity();
-	glOrtho(0.0, COLUMNS, 0.0, ROWS, -1.0, 1.0);		// Sets the clipping planes and distances for depth clipping
-	glMatrixMode(GL_MODELVIEW);													// Set's matrix back to model_view
+	glOrtho(0.0, COLUMNS, 0.0, ROWS, -1.0, 1.0);					// Sets the clipping planes and distances for depth clipping
+	glMatrixMode(GL_MODELVIEW);										// Set's matrix back to model_view
 }
 
 void timer(int)
 {
-	glutPostRedisplay();							// Calls display function asap - new frame is displayed every time it's called
-	glutTimerFunc(1000 / FPS, timer, 0);	// Called 10 times every second (10 FPS)
+	glutPostRedisplay();					// Calls display function asap - new frame is displayed every time it's called
+	glutTimerFunc(1000 / FPS, timer, 0);	// Called x time every second (depending on the FPS value set)
 }
 
 void keyboardInput(int keyPressed, int, int)
