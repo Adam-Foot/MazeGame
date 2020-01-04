@@ -43,42 +43,139 @@ time_t programend = 240;
 int main(int argc, char** argv)
 {
 
-	printf("Welcome to my Maze Game");
+	system("cls");
+	printf("~~~~~~DEATH MAZE~~~~~~\n");
+	printf("Please enter a value for the below menu:\n");
+	printf("1. Play Game\n");
+	printf("2. Instructions\n");
+	printf("3. Exit\n");
 
-	glutInit(&argc, argv);												// Initialise GLUT
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);						// Initialise the display mode (double buffered for better performance)
-	glutInitWindowSize(500, 500);										// Set's the size of the GLUT window
-	glutInitWindowPosition(300, 300);									// Set's the position of the GLUT window
+	std::string option;
+	std::cin >> option;
 
+	if (option == "1")
+	{
+		glutInit(&argc, argv);												// Initialise GLUT
+		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);						// Initialise the display mode (double buffered for better performance)
+		glutInitWindowSize(500, 500);										// Set's the size of the GLUT window
+		glutInitWindowPosition(300, 300);									// Set's the position of the GLUT window
+
+
+
+		glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");			// Creates GLUT window and defines it's title
+
+
+		int subMenu1 = glutCreateMenu(GoMenu);
+
+		glutAddMenuEntry("Normal Speed", 1);
+		glutAddMenuEntry("Speed x2", 2);
+		glutAddMenuEntry("Speed x4", 3);
+		glutCreateMenu(GoMenu);
+		glutAddSubMenu("Speed Settings", subMenu1);
+		glutAddMenuEntry("Exit", 4);
+		glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+
+		glutDisplayFunc(display);
+		glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
+		glutTimerFunc(0, timer, 0);											// Timer function
+		glutSpecialFunc(keyboardInput);
+
+		time(&programstart);												// Start's counting ticks for game timer
+
+
+
+		init();
+		glutMainLoop();														// Main GLUT loop
+
+		return 0;
+	}
+
+	if (option == "2")
+	{
+		system("cls");
+		printf("~~~~~~ INSTRUCTIONS ~~~~~~\n");
+		printf("When you start the game your character will be stationary and you will start in the top left corner (marked green).\n \n");
+		printf("Your aim is to navigate the maze and reach the exit which can be found in the bottom right corner (marked blue).\n \n");
+		printf("But be careful! If you touch any of the red walls you instantly die and have to restart! Why do you think it's called DEATH MAZE?!\n \n");
+		printf("\n");
+		printf("~~~~~~ CONTROLS ~~~~~~\n");
+		printf("Pressing the following keys performs the following actions:\n");
+		printf("Up Arrow - Moves character up\n");
+		printf("Down Arrow - Moves character down\n");
+		printf("Left Arrow - Moves character left\n");
+		printf("Right Arrow - Moves character right\n");
+		printf("Right Mouse Click - Opens a menu that allows the user to change the speed of their character, allowing them to complete the maze faster... If they can complete it! It also allows the user to exit the game.\n");
+		printf("\n");
+		printf("Once you start moving, your character will not stop! It has a continuous movement which makes it harder to navigate the maze!\n You are also timed just to make it that little bit harder!\n");
+		printf("\n");
+		printf("Enter 1 and press enter to return to the main menu");
+		
+		std::string option2;
+		std::cin >> option2;
+
+		if (option2 == "1")
+		{
+			system("cls");
+			printf("~~~~~~ DEATH MAZE ~~~~~~\n");
+			printf("Please enter a value for the below menu:\n");
+			printf("1. Play Game\n");
+			printf("2. Exit\n");
+
+			std::string option3;
+			std::cin >> option3;
+
+			if (option3 == "1")
+			{
+				glutInit(&argc, argv);												// Initialise GLUT
+				glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);						// Initialise the display mode (double buffered for better performance)
+				glutInitWindowSize(500, 500);										// Set's the size of the GLUT window
+				glutInitWindowPosition(300, 300);									// Set's the position of the GLUT window
+
+
+
+				glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");			// Creates GLUT window and defines it's title
+
+
+				int subMenu1 = glutCreateMenu(GoMenu);
+
+				glutAddMenuEntry("Normal Speed", 1);
+				glutAddMenuEntry("Speed x2", 2);
+				glutAddMenuEntry("Speed x4", 3);
+				glutCreateMenu(GoMenu);
+				glutAddSubMenu("Speed Settings", subMenu1);
+				glutAddMenuEntry("Exit", 4);
+				glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+
+				glutDisplayFunc(display);
+				glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
+				glutTimerFunc(0, timer, 0);											// Timer function
+				glutSpecialFunc(keyboardInput);
+
+				time(&programstart);												// Start's counting ticks for game timer
+
+
+
+				init();
+				glutMainLoop();														// Main GLUT loop
+
+				return 0;
+			}
+
+			if (option3 == "2")
+			{
+				exit(0);
+			}
+
+		}
+	}
 	
+	if (option == "3")
+	{
+		exit(0);
+	}
 
-	glutCreateWindow("2D Maze Game - Adam Foot (SOFT356 CW2)");			// Creates GLUT window and defines it's title
-
-
-	int subMenu1 = glutCreateMenu(GoMenu);
-
-	glutAddMenuEntry("Normal Speed", 1);
-	glutAddMenuEntry("Speed x2", 2);
-	glutAddMenuEntry("Speed x4", 3);
-	glutCreateMenu(GoMenu);
-	glutAddSubMenu("Speed Settings", subMenu1);
-	glutAddMenuEntry("Exit", 4);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-
-
-	glutDisplayFunc(display);
-	glutReshapeFunc(displaySizeChange);									// Called when the windows size is changed (through maximisation/minimisation)
-	glutTimerFunc(0, timer, 0);											// Timer function
-	glutSpecialFunc(keyboardInput);
-
-	time(&programstart);												// Start's counting ticks for game timer
-
-	
-
-	init();
-	glutMainLoop();														// Main GLUT loop
-
-	return 0;
 }
 
 void GoMenu(int value) {
@@ -94,10 +191,6 @@ void GoMenu(int value) {
 		FPS = 12;
 		break;
 	case 4:
-		glutTimerFunc(0, NULL, 0);
-		glutPostRedisplay();
-		break;
-	case 5:
 		exit(0);
 		break;
 	}
